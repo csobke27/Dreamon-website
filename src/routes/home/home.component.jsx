@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import Container from 'react-bootstrap/Container';
@@ -11,9 +10,9 @@ import Animation from "../../components/animation-section/animation-section.comp
 import "./home.styles.scss";
 
 const Home = () => {
-    const navigate = useNavigate();
-    const themedClasses = [".navigation-container", ".footer-link"];
+    
     useEffect(() => {
+        const themedClasses = [".navigation-container", ".footer-link"];
         document.querySelector('.outlet-container').style.setProperty('--outlet-bg', 'black'); // Set background behind navbar to black
         Array.from(themedClasses).forEach(cls => {
             document.querySelector(cls).style.setProperty('--theme-color', '#72D822'); // Set navbar color to green

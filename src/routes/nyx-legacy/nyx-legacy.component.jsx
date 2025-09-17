@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import Container from 'react-bootstrap/Container';
@@ -6,15 +5,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 
-
 import "./nyx-legacy.styles.scss";
-import { Fade } from "react-bootstrap";
 import Animation from "../../components/animation-section/animation-section.component";
 
 const NyxLegacy = () => {
-    const navigate = useNavigate();
-    const themedClasses = [".navigation-container", ".footer-link"];
+    
     useEffect(() => {
+        const themedClasses = [".navigation-container", ".footer-link"];
         document.querySelector('.outlet-container').style.setProperty('--outlet-bg', 'rgb(210 128 54)'); // Set background behind navbar to rgb(210 128 54)
         Array.from(themedClasses).forEach(cls => {
             document.querySelectorAll(cls).forEach(el => {

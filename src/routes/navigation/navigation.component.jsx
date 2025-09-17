@@ -1,12 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 import Row from 'react-bootstrap/Row';
@@ -17,10 +14,6 @@ import Footer from "../../components/footer/footer.component";
 import "./navigation.styles.scss";
 
 const Navigation = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isTransitioning, setIsTransitioning] = useState(false);
-    const [currentPath, setCurrentPath] = useState("");
-    const location = useLocation();
     const [hideNavbar, setHideNavbar] = useState(false);
     const lastScrollY = useRef(0);
     const scrollTriggerAmount = 106; // Adjust this value as needed
@@ -41,21 +34,6 @@ const Navigation = () => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
-
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    }
-
-    const handleNavigation = (event, path) => {
-        // event.preventDefault();
-        // if (path !== location.pathname) {
-        //     setIsTransitioning(true); // Start the transition
-        //     setTimeout(() => {
-        //         setCurrentPath(path); // Update the current path after the delay
-        //         setIsTransitioning(false); // End the transition
-        //     }, 1000); // Delay in milliseconds (1 second in this case)
-        // }
-    };
     return (
         <>
             <Navbar fixed="top" expand={'false'} className={`bg-body-tertiary mb-3 navigation-container ${hideNavbar ? "navbar-hidden" : "navbar-show"}`}>
@@ -98,7 +76,7 @@ const Navigation = () => {
                     </Navbar.Offcanvas>
                 </Container>
             </Navbar>
-            <div className={`outlet-container ${isTransitioning ? "fade-out" : "fade-in"}`}>
+            <div className={`outlet-container`}>
                 <Outlet />
             </div>
             <Footer />

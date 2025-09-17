@@ -32,7 +32,7 @@ const Footer = () => {
                     <div className="footer-sub-container">
                         <h5 className="footer-header-5">Help us out on our journey:</h5>
                         <div className="">
-                            <a className="footer-link" href="https://www.gofundme.com/f/nyx-legacy-a-story-to-be-told" target="_blank">GoFundMe</a>
+                            <a className="footer-link" href="https://www.gofundme.com/f/nyx-legacy-a-story-to-be-told" target="_blank" rel="noopener noreferrer">GoFundMe</a>
                         </div>
                     </div>
                 </Col>
