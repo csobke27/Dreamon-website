@@ -8,6 +8,10 @@
     font: normal normal normal 24px/1.25em Museo700, serif;
 }
 
+.nyx-banner-logo{
+    width: 100%;
+}
+
 .border-top-white {
     border-top: 2px solid white;
     margin-top: 20px;
@@ -36,7 +40,6 @@
 
 .nyx-image-border {
     border: 3px solid #622737;
-    border-style: bevel;
     padding: 1px;
     background-color: rgb(59 61 155);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);

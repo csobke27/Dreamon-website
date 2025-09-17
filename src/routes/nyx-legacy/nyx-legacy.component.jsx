@@ -24,7 +24,7 @@ const NyxLegacy = () => {
             <Row>
                 <Col className="no-padding">
                     <div className="text-center">
-                        <Image src="/images/Nyx-banner.jpg" alt="Logo" className="home-logo" fluid />
+                        <Image src="/images/Nyx-banner.jpg" alt="Logo" className="nyx-banner-logo" fluid />
                     </div>
                 </Col>
             </Row>
