@@ -76,6 +76,22 @@ const NyxLegacy = () => {
                     </Animation>
                 </Col>
             </Row>
+            <Row className="center-content">
+                <div className="border-top-white"></div>
+                <Col className="no-padding">
+                    <Animation type="expand">
+                        <h1 className="nyx-legacy-title text-center"><b>Wishlist now on Steam!</b></h1>
+                    </Animation>
+                    <Animation type="fade-in">
+                        <div className="text-center responsive-iframe d-none d-sm-block"  style={{marginBottom:20, marginTop:20}}>
+                            <iframe title="Nyx Legacy Steam Widget" src="https://store.steampowered.com/widget/4016050/" frameborder="0" ></iframe>
+                        </div>
+                        <div className="text-center d-block d-sm-none" style={{marginBottom:20, marginTop:20}}>
+                            <button className="wishlist-button" onClick={() => window.open("https://store.steampowered.com/app/4016050/Nyx_Legacy/", "_blank", "noopener,noreferrer")}>Wishlist on Steam</button>
+                        </div>
+                    </Animation>
+                </Col>
+            </Row>
             <Row style={{marginTop:40}}>
                 <Col className="no-padding">
                     <div className="blog-divider"></div>

@@ -52,6 +52,9 @@ const Home = () => {
                                 We share our progress step-by-step through <a className="link" href="/blog">blogs</a>, streams, and community updates. Nyx Legacy is still in development, but a playable demo will be available soon. 
                                 <br />
                                 <br />
+                                Available to <a className="link" href="https://store.steampowered.com/app/4016050/Nyx_Legacy/" target="_blank" rel="noopener noreferrer">wishlist on Steam</a> now!
+                                <br />
+                                <br />
                                 <a className="link" href="/nyx-legacy">Click here to learn more about Nyx Legacy!</a>
                             </p>
                         </div>
