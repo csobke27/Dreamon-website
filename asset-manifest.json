@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/dreamon/static/css/main.c7449f5a.css",
-    "main.js": "/dreamon/static/js/main.af0cffe7.js",
-    "static/js/453.b6daef5c.chunk.js": "/dreamon/static/js/453.b6daef5c.chunk.js",
-    "static/media/Museo 700.otf": "/dreamon/static/media/Museo 700.8d2cbb04dda44bdbc5ae.otf",
-    "index.html": "/dreamon/index.html",
-    "main.c7449f5a.css.map": "/dreamon/static/css/main.c7449f5a.css.map",
-    "main.af0cffe7.js.map": "/dreamon/static/js/main.af0cffe7.js.map",
-    "453.b6daef5c.chunk.js.map": "/dreamon/static/js/453.b6daef5c.chunk.js.map"
+    "main.css": "/Dreamon-website/static/css/main.08b8bc2a.css",
+    "main.js": "/Dreamon-website/static/js/main.2c890f0d.js",
+    "static/js/453.b6daef5c.chunk.js": "/Dreamon-website/static/js/453.b6daef5c.chunk.js",
+    "static/media/Museo 700.otf": "/Dreamon-website/static/media/Museo 700.8d2cbb04dda44bdbc5ae.otf",
+    "index.html": "/Dreamon-website/index.html",
+    "main.08b8bc2a.css.map": "/Dreamon-website/static/css/main.08b8bc2a.css.map",
+    "main.2c890f0d.js.map": "/Dreamon-website/static/js/main.2c890f0d.js.map",
+    "453.b6daef5c.chunk.js.map": "/Dreamon-website/static/js/453.b6daef5c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c7449f5a.css",
-    "static/js/main.af0cffe7.js"
+    "static/css/main.08b8bc2a.css",
+    "static/js/main.2c890f0d.js"
   ]
 }
