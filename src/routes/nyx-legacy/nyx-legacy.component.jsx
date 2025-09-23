@@ -1,15 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
+import Carousel from 'react-bootstrap/Carousel';
 
 import "./nyx-legacy.styles.scss";
 import Animation from "../../components/animation-section/animation-section.component";
+import BlogCard from "../../components/blog-card/blog-card.component";
 
 const NyxLegacy = () => {
-    
+    const [blogPosts, setBlogPosts] = useState([]);
+    // const blogPostTest = "\u003cp\u003eThis is my first blog post (yay!). I’m only using this as a test to see how blog posts are pulled using the blogger API. This will hopefully be a cheaper alternative to Wix (and more user friendly).\u003c/p\u003e\u003cp\u003e\u003cb\u003eBold Test\u003c/b\u003e\u003c/p\u003e\u003cp\u003eIn the end, this should be pulled by the blogger API and placed into the react version of the Dreamon Interactive website. Fingers crossed this works!\u003c/p\u003e";
+    // const decodedContent = JSON.parse('"' + blogPostTest + '"');
     useEffect(() => {
         const themedClasses = [".navigation-container", ".footer-link"];
         document.querySelector('.outlet-container').style.setProperty('--outlet-bg', 'rgb(210 128 54)'); // Set background behind navbar to rgb(210 128 54)
@@ -18,6 +22,34 @@ const NyxLegacy = () => {
                 el.style.setProperty('--theme-color', 'rgb(210 128 54)');
             });
         });
+    }, []);
+
+    // get blog posts from blogger api
+    useEffect(() => {
+        const fetchBlogPosts = async () => {
+            try {
+                console.log("Fetching blog posts...");
+                const tag = "nyx-legacy";
+                const tagResponse = await fetch(`https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/tags?slug=${tag}`);
+                const tagData = await tagResponse.json();
+                if (!tagData.length) {
+                    setBlogPosts([]);
+                    console.error(`Tag "${tag}" not found.`);
+                }else {
+                    // const postsResponse = await fetch(`https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/posts?per_page=3&tags=${tagId}`);
+                    const postsResponse = await fetch(`https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/posts?per_page=3`);
+                    const postsData = await postsResponse.json();
+                    setBlogPosts(postsData || []);
+                    // let link to page theme color
+                    document.querySelectorAll(".blog-card-link").forEach(el => {
+                        el.style.setProperty('--theme-color', 'rgb(210 128 54)');
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching blog posts:', error);
+            }
+        };
+        fetchBlogPosts();
     }, []);
     return (
         <Container fluid className="nyx-legacy-page">
@@ -84,7 +116,7 @@ const NyxLegacy = () => {
                     </Animation>
                     <Animation type="fade-in">
                         <div className="text-center responsive-iframe d-none d-sm-block"  style={{marginBottom:20, marginTop:20}}>
-                            <iframe title="Nyx Legacy Steam Widget" src="https://store.steampowered.com/widget/4016050/" frameborder="0" ></iframe>
+                            <iframe title="Nyx Legacy Steam Widget" src="https://store.steampowered.com/widget/4016050/" ></iframe>
                         </div>
                         <div className="text-center d-block d-sm-none" style={{marginBottom:20, marginTop:20}}>
                             <button className="wishlist-button" onClick={() => window.open("https://store.steampowered.com/app/4016050/Nyx_Legacy/", "_blank", "noopener,noreferrer")}>Wishlist on Steam</button>
@@ -103,6 +135,34 @@ const NyxLegacy = () => {
                         <h1 className=""><b>Blog Updates</b></h1>
                     </Col>
                     <div className="border-top-white no-margin-top"></div>
+                </Row>
+                <Row className="center-content" style={{marginTop:20}}>
+                        {blogPosts.length === 0 ? (
+                            <Col className="no-padding">
+                                <p>No blog posts available at the moment.</p>
+                            </Col>
+                        ) : (
+                            <>
+                                {/* Grid for large screens and up */}
+                                <Row className="d-none d-lg-flex w-100">
+                                    {blogPosts.slice(0, 3).map((post) => (
+                                        <Col lg={4} key={post.id}>
+                                            <BlogCard id={post.id} title={post.title} thumbnail={post.jetpack_featured_media_url} content={post.excerpt} />
+                                        </Col>
+                                    ))}
+                                </Row>
+                                {/* Carousel for medium screens and below */}
+                                <div className="d-lg-none w-100">
+                                    <Carousel style={{ height: '540px' }} interval={null} indicators={false} >
+                                        {blogPosts.slice(0, 3).map((post) => (
+                                            <Carousel.Item key={post.id} >
+                                                <BlogCard id={post.id} title={post.title} thumbnail={post.jetpack_featured_media_url} content={post.excerpt} />
+                                            </Carousel.Item>
+                                        ))}
+                                    </Carousel>
+                                </div>
+                            </>
+                        )}
                 </Row>
             </div>
         </Container>
