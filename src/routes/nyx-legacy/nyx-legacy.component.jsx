@@ -12,6 +12,7 @@ import BlogCard from "../../components/blog-card/blog-card.component";
 
 const NyxLegacy = () => {
     const [blogPosts, setBlogPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
     // const blogPostTest = "\u003cp\u003eThis is my first blog post (yay!). I’m only using this as a test to see how blog posts are pulled using the blogger API. This will hopefully be a cheaper alternative to Wix (and more user friendly).\u003c/p\u003e\u003cp\u003e\u003cb\u003eBold Test\u003c/b\u003e\u003c/p\u003e\u003cp\u003eIn the end, this should be pulled by the blogger API and placed into the react version of the Dreamon Interactive website. Fingers crossed this works!\u003c/p\u003e";
     // const decodedContent = JSON.parse('"' + blogPostTest + '"');
     useEffect(() => {
@@ -27,25 +28,28 @@ const NyxLegacy = () => {
     // get blog posts from blogger api
     useEffect(() => {
         const fetchBlogPosts = async () => {
+            setLoading(true);
             try {
-                console.log("Fetching blog posts...");
                 const tag = "nyx-legacy";
-                const tagResponse = await fetch(`https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/tags?slug=${tag}`);
+                const tagResponse = await fetch(`https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/categories?slug=${tag}`);
                 const tagData = await tagResponse.json();
                 if (!tagData.length) {
                     setBlogPosts([]);
-                    console.error(`Tag "${tag}" not found.`);
+                    setLoading(false);
                 }else {
-                    // const postsResponse = await fetch(`https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/posts?per_page=3&tags=${tagId}`);
-                    const postsResponse = await fetch(`https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/posts?per_page=3`);
+                    const tagId = tagData[0].id;
+                    const postsResponse = await fetch(`https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/posts?per_page=3&categories=${tagId}`);
+                    // const postsResponse = await fetch(`https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/posts?per_page=3`);
                     const postsData = await postsResponse.json();
                     setBlogPosts(postsData || []);
+                    setLoading(false);
                     // let link to page theme color
                     document.querySelectorAll(".blog-card-link").forEach(el => {
                         el.style.setProperty('--theme-color', 'rgb(210 128 54)');
                     });
                 }
             } catch (error) {
+                setLoading(false);
                 console.error('Error fetching blog posts:', error);
             }
         };
@@ -137,31 +141,41 @@ const NyxLegacy = () => {
                     <div className="border-top-white no-margin-top"></div>
                 </Row>
                 <Row className="center-content" style={{marginTop:20}}>
-                        {blogPosts.length === 0 ? (
-                            <Col className="no-padding">
-                                <p>No blog posts available at the moment.</p>
+                        {loading ? (
+                            <Col className="no-padding text-center" style={{marginTop: 150, marginBottom: 150}}>
+                                <span className="spinner-border" role="status" aria-hidden="true" style={{width: '3rem', height: '3rem'}}></span>
                             </Col>
                         ) : (
-                            <>
-                                {/* Grid for large screens and up */}
-                                <Row className="d-none d-lg-flex w-100">
-                                    {blogPosts.slice(0, 3).map((post) => (
-                                        <Col lg={4} key={post.id}>
-                                            <BlogCard id={post.id} title={post.title} thumbnail={post.jetpack_featured_media_url} content={post.excerpt} />
-                                        </Col>
-                                    ))}
-                                </Row>
-                                {/* Carousel for medium screens and below */}
-                                <div className="d-lg-none w-100">
-                                    <Carousel style={{ height: '540px' }} interval={null} indicators={false} >
+                            blogPosts.length === 0 ? (
+                                <Col className="no-padding">
+                                    <p>No blog posts available at the moment.</p>
+                                </Col>
+                            ) : (
+                                <>
+                                    {/* Grid for large screens and up */}
+                                    <Row className="d-none d-lg-flex w-100">
                                         {blogPosts.slice(0, 3).map((post) => (
-                                            <Carousel.Item key={post.id} >
-                                                <BlogCard id={post.id} title={post.title} thumbnail={post.jetpack_featured_media_url} content={post.excerpt} />
-                                            </Carousel.Item>
+                                            <Col lg={12/blogPosts.length} key={post.id}>
+                                                <Animation type="fade-in">
+                                                    <BlogCard slug={post.slug} title={post.title} thumbnail={post.jetpack_featured_media_url} content={post.excerpt} />
+                                                </Animation>
+                                            </Col>
                                         ))}
-                                    </Carousel>
-                                </div>
-                            </>
+                                    </Row>
+                                    {/* Carousel for medium screens and below */}
+                                    <div className="d-lg-none w-100">
+                                        <Carousel style={{ minHeight: '540px' }} interval={null} indicators={false} >
+                                            {blogPosts.slice(0, 3).map((post) => (
+                                                <Carousel.Item key={post.id} >
+                                                    <Animation type="fade-in">
+                                                        <BlogCard slug={post.slug} title={post.title} thumbnail={post.jetpack_featured_media_url} content={post.excerpt} />
+                                                    </Animation>
+                                                </Carousel.Item>
+                                            ))}
+                                        </Carousel>
+                                    </div>
+                                </>
+                            )
                         )}
                 </Row>
             </div>

@@ -6,6 +6,8 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "./routes/home/home.component";
 import NyxLegacy from "./routes/nyx-legacy/nyx-legacy.component";
+import Blog from "./routes/blog/blog.component";
+import BlogPost from "./routes/blog-post/blog-post.component";
 
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
         <Route index element={<Home />} />
         {/* <Route path="about" element={<About />} /> */}
         <Route path="nyx-legacy" element={<NyxLegacy />} />
+        <Route path="blog" element={<Blog />} />
+        <Route path="post/:slug" element={<BlogPost />} />
       </Route>
       <Route path="*" element={<h1>404 Page Not Found!</h1>} /> 
     </Routes>

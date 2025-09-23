@@ -16,6 +16,7 @@
   display: block;
   object-fit: cover;
   margin-bottom:10px;
+  margin-top:10px;
 }
 
 .blog-card-link {
@@ -26,4 +27,8 @@
 
 .blog-card-link:hover {
     color: var(--theme-color, #72D822);
+}
+
+.blog-card-container{
+    margin-left: auto !important;
 }

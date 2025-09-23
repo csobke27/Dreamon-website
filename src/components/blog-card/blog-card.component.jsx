@@ -4,19 +4,34 @@ import Col from 'react-bootstrap/Col';
 
 import "./blog-card.styles.scss";
 
-const BlogCard = ({ id, title, thumbnail, content }) => {
+const BlogCard = ({ slug, title, thumbnail, content, layout = "vertical" }) => {
     return (
         <Container className="blog-card-container">
-            <a href={`#${id}`} className="blog-card-link">
+            <a href={`post/${slug}`} className="blog-card-link">
                 <Row>
-                    <Col>
-                        {thumbnail !== '' && (
-                            <img className="blog-card-image" src={thumbnail} alt="Blog Post" />
-                        )}
-                        <div className="blog-card-title">{title.rendered}</div>
-                        <div className="blog-card-content" dangerouslySetInnerHTML={{ __html: content.rendered }}  /> {/*style={{ height: '50px', overflow: 'hidden' }} */}
-                        {/* <p className="blog-card-content">{content}</p> */}
-                    </Col>
+                    {layout === "horizontal" ? (
+                        <>
+                            <Col sm={4}>
+                                {thumbnail !== '' && (
+                                    <img className="blog-card-image" src={thumbnail} alt="Blog Post" />
+                                )}
+                            </Col>
+                            <Col>
+                                <div className="blog-card-title" style={{marginTop: '10px'}}>{title.rendered}</div>
+                                <div className="blog-card-content" dangerouslySetInnerHTML={{ __html: content.rendered }} /> {/*style={{ height: '50px', overflow: 'hidden' }} */}
+                            </Col>
+                        </>
+                    ) : (
+                        <>
+                            <Col>
+                                {thumbnail !== '' && (
+                                    <img className="blog-card-image" src={thumbnail} alt="Blog Post" />
+                                )}
+                                <div className="blog-card-title">{title.rendered}</div>
+                                <div className="blog-card-content" dangerouslySetInnerHTML={{ __html: content.rendered }} /> {/*style={{ height: '50px', overflow: 'hidden' }} */}
+                            </Col>
+                        </>
+                    )}
                 </Row>
             </a>
         </Container>
