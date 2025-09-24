@@ -13,6 +13,12 @@ import "./blog-post.styles.scss";
 
 const BlogPost = () => {
     const { slug } = useParams();
+
+    useEffect(() => {
+        document.title = `Dreamon | Blog Post: ${slug}`;
+    }, [slug]);
+
+    
     const [post, setPost] = useState(null);
 
     useEffect(() => {

@@ -10,6 +10,10 @@ import Animation from "../../components/animation-section/animation-section.comp
 import "./home.styles.scss";
 
 const Home = () => {
+
+    useEffect(() => {
+        document.title = "Dreamon | Home";
+    }, []);
     
     useEffect(() => {
         const themedClasses = [".navigation-container", ".footer-link"];

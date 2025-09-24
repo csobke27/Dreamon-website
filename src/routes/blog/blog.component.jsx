@@ -16,6 +16,11 @@ import { WP_API_BASE } from "../../config";
 import "./blog.styles.scss";
 
 const Blog = () => {
+
+    useEffect(() => {
+        document.title = `Dreamon | Blog`;
+    }, []);
+
     // Responsive layout helper
     const getLayout = () => {
         if (typeof window !== 'undefined') {

@@ -14,6 +14,11 @@ import { WP_API_BASE } from "../../config";
 import "./nyx-legacy.styles.scss";
 
 const NyxLegacy = () => {
+
+    useEffect(() => {
+        document.title = "Dreamon | Nyx Legacy";
+    }, []);
+
     const [blogPosts, setBlogPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     // const blogPostTest = "\u003cp\u003eThis is my first blog post (yay!). I’m only using this as a test to see how blog posts are pulled using the blogger API. This will hopefully be a cheaper alternative to Wix (and more user friendly).\u003c/p\u003e\u003cp\u003e\u003cb\u003eBold Test\u003c/b\u003e\u003c/p\u003e\u003cp\u003eIn the end, this should be pulled by the blogger API and placed into the react version of the Dreamon Interactive website. Fingers crossed this works!\u003c/p\u003e";
