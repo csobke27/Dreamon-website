@@ -45,10 +45,6 @@ const NyxLegacy = () => {
                     const postsData = await postsResponse.json();
                     setBlogPosts(postsData || []);
                     setLoading(false);
-                    // let link to page theme color
-                    document.querySelectorAll(".blog-card-link").forEach(el => {
-                        el.style.setProperty('--theme-color', 'rgb(210 128 54)');
-                    });
                 }
             } catch (error) {
                 setLoading(false);
@@ -57,6 +53,13 @@ const NyxLegacy = () => {
         };
         fetchBlogPosts();
     }, []);
+
+    // let link to page theme color
+    useEffect(() => {
+        document.querySelectorAll(".blog-card-link").forEach(el => {
+            el.style.setProperty('--theme-color', 'rgb(210 128 54)');
+        });
+    }, [blogPosts]);
     return (
         <Container fluid className="nyx-legacy-page">
             <Row>
