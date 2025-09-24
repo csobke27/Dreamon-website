@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -9,6 +9,9 @@ import Form from 'react-bootstrap/Form';
 
 import Animation from "../../components/animation-section/animation-section.component";
 import BlogCard from "../../components/blog-card/blog-card.component";
+import Pagination from 'react-bootstrap/Pagination';
+
+import { WP_API_BASE } from "../../config";
 
 import "./blog.styles.scss";
 
@@ -31,7 +34,11 @@ const Blog = () => {
     const [formOpen, setFormOpen] = useState(false);
     const [blogPosts, setBlogPosts] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [sortOrder, setSortOrder] = useState('date');
     const [loading, setLoading] = useState(true);
+    const [totalPages, setTotalPages] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         const themedClasses = [".navigation-container", ".footer-link"];
@@ -42,14 +49,32 @@ const Blog = () => {
     }, []);
 
     // get blog posts from blogger api
-    const fetchBlogPosts = async (categoryId = null) => {
+    const fetchBlogPosts = useCallback(async (categoryId = null, page = 1) => {
         setLoading(true);
+        setCurrentPage(page);
         try {
-            let postsUrl = `https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/posts?per_page=20`;
+            let postsUrl = `${WP_API_BASE}posts?page=${page}&per_page=2`;
+            switch (sortOrder) {
+                case 'date':
+                    postsUrl += `&order_by=date&order=desc`;
+                    break;
+                case 'date-reverse':
+                    postsUrl += `&order_by=date&order=asc`;
+                    break;
+                case 'title':
+                    postsUrl += `&order_by=title&order=asc`;
+                    break;
+                case 'title-reverse':
+                    postsUrl += `&order_by=title&order=desc`;
+                    break;
+                default:
+                    postsUrl += `&order_by=date&order=desc`;
+            }
             if (categoryId) {
                 postsUrl += `&categories=${categoryId}`;
             }
             const postsResponse = await fetch(postsUrl);
+            setTotalPages(postsResponse.headers.get('X-WP-TotalPages')); // Total number of pages
             const postsData = await postsResponse.json();
             setBlogPosts(postsData || []);
             setLoading(false);
@@ -58,7 +83,7 @@ const Blog = () => {
             setLoading(false);
             console.error('Error fetching blog posts:', error);
         }
-    };
+    }, [sortOrder]);
 
     // let link to page theme color
     useEffect(() => {
@@ -68,14 +93,14 @@ const Blog = () => {
     }, [blogPosts]);
 
     useEffect(() => {
-        fetchBlogPosts();
-    }, []);
+        fetchBlogPosts(selectedCategory);
+    }, [selectedCategory, sortOrder, fetchBlogPosts]);
 
     // get categories from blogger api
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                let categoriesUrl = `https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/categories`;
+                let categoriesUrl = `${WP_API_BASE}categories`;
                 const categoriesResponse = await fetch(categoriesUrl);
                 const categoriesData = await categoriesResponse.json();
                 setCategories(categoriesData || []);
@@ -104,18 +129,30 @@ const Blog = () => {
                         aria-expanded={formOpen}
                         className="blog-filter-button"
                     >
-                        {formOpen ? 'Close' : 'Filter Posts'}
+                        {formOpen ? 'Close' : 'Filter / Sort'}
                     </Button>
                     <Collapse in={formOpen}>
                         <div>
-                            <Form.Select disabled={loading} size="lg" onChange={(e) => fetchBlogPosts(e.target.value)}>
+                            <div>
+                            <span style={{ marginRight: 10 }}>Filter by Category:</span>
+                            <Form.Select disabled={loading} size="md" onChange={(e) => setSelectedCategory(e.target.value)}>
                                 <option value="">All Posts</option>
                                 {categories.map(category => (
                                     <option key={category.id} value={category.id}>
-                                        {category.name}
+                                        {category.name} ({category.count})
                                     </option>
                                 ))}
                             </Form.Select>
+                            </div>
+                            <div style={{ marginTop: 20 }}>
+                                <span style={{ marginRight: 10, marginTop: 10 }}>Sort by:</span>
+                                <Form.Select disabled={loading} size="md" onChange={(e) => setSortOrder(e.target.value)} value={sortOrder}>
+                                    <option value="date">Newest-Oldest</option>
+                                    <option value="date-reverse">Oldest-Newest</option>
+                                    <option value="title">Title (A-Z)</option>
+                                    <option value="title-reverse">Title (Z-A)</option>
+                                </Form.Select>
+                            </div>
                         </div>
                     </Collapse>
 
@@ -138,10 +175,23 @@ const Blog = () => {
                                 </Col>
                             </Row>
                         ))}
+                        {blogPosts.length === 0 && (
+                            <Col className="no-padding text-center" style={{ marginTop: 50, marginBottom: 50 }}>
+                                <h3>No posts found.</h3>
+                            </Col>
+                        )}
                     </>
                 )}
+                <div className="pagination-container">
+                    <Pagination>
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNum => (
+                            <Pagination.Item key={pageNum} active={pageNum === currentPage} onClick={() => fetchBlogPosts(selectedCategory, pageNum)}>
+                                {pageNum}
+                            </Pagination.Item>
+                        ))}
+                    </Pagination>
+                </div>
             </div>
-
         </Container>
     );
 };

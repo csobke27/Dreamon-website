@@ -1,0 +1,1 @@
+export const WP_API_BASE = "https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/";

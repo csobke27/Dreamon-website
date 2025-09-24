@@ -6,9 +6,12 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Carousel from 'react-bootstrap/Carousel';
 
-import "./nyx-legacy.styles.scss";
 import Animation from "../../components/animation-section/animation-section.component";
 import BlogCard from "../../components/blog-card/blog-card.component";
+
+import { WP_API_BASE } from "../../config";
+
+import "./nyx-legacy.styles.scss";
 
 const NyxLegacy = () => {
     const [blogPosts, setBlogPosts] = useState([]);
@@ -31,15 +34,14 @@ const NyxLegacy = () => {
             setLoading(true);
             try {
                 const tag = "nyx-legacy";
-                const tagResponse = await fetch(`https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/categories?slug=${tag}`);
+                const tagResponse = await fetch(`${WP_API_BASE}categories?slug=${tag}`);
                 const tagData = await tagResponse.json();
                 if (!tagData.length) {
                     setBlogPosts([]);
                     setLoading(false);
                 }else {
                     const tagId = tagData[0].id;
-                    const postsResponse = await fetch(`https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/posts?per_page=3&categories=${tagId}`);
-                    // const postsResponse = await fetch(`https://public-api.wordpress.com/wp/v2/sites/coreytestblog4.wordpress.com/posts?per_page=3`);
+                    const postsResponse = await fetch(`${WP_API_BASE}posts?per_page=3&categories=${tagId}`);
                     const postsData = await postsResponse.json();
                     setBlogPosts(postsData || []);
                     setLoading(false);

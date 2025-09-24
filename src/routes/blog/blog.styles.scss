@@ -32,8 +32,18 @@
 .blog-card-row{
     margin-bottom: 40px;
     background-color: var(--theme-color, #4a8c16);
+    border-radius: 8px;
 }
 
 .blog-filter-form, .blog-filter-button{
     margin-bottom:20px;
 }
+
+// .page-link, .page-link:hover{
+//     color:  var(--theme-color, #4a8c16);
+// }
+
+// .page-item.active > .page-link{
+//     background-color: var(--theme-color, #4a8c16);
+//     color:white;
+// }
