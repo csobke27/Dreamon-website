@@ -38,9 +38,24 @@ const BlogPost = () => {
         fetchPost();
     }, [slug]);
 
+    // Responsive layout helper
+    const getCenterContentClass = () => {
+        if (typeof window !== 'undefined') {
+            return window.innerWidth < 768 ? '' : 'center-content';
+        }
+        return 'center-content';
+    };
+
+    const [blogLayout, setBlogLayout] = useState(getCenterContentClass());
+    useEffect(() => {
+        const handleResize = () => setBlogLayout(getCenterContentClass());
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
         <Container fluid className="blog-post-page">
-            <Row className="center-content">
+            <Row className={blogLayout}>
                 {/* <div className="border-top-white"></div> */}
                 <Col className="no-padding">
                     <Animation type="fade-in">
@@ -51,7 +66,7 @@ const BlogPost = () => {
                                 {post.jetpack_featured_media_url && (
                                         <Image className="blog-post-image" src={post.jetpack_featured_media_url} alt={post.title} fluid />
                                     )}
-                                <div className="blog-post-content center-content">
+                                <div className={`blog-post-content center-content`}>
                                     <h1 className="blog-post-title">{post.title.rendered}</h1>
                                     <div className="blog-post-insert" dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
                                 </div>
