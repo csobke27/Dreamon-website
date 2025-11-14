@@ -70,6 +70,21 @@ const Navigation = () => {
                                             <img alt="Twitch" src="/images/twitch-circle.png" width="30" height="30" className="me-2" />
                                         </Nav.Link>
                                     </Col>
+                                    <Col className="text-center">
+                                        <Nav.Link href="https://www.youtube.com/@DreamonInteractive" target="_blank" rel="noopener noreferrer">
+                                            <img alt="YouTube" src="/images/youtube-circle.png" width="30" height="30" className="me-2" />
+                                        </Nav.Link>
+                                    </Col>
+                                    <Col className="text-center">
+                                        <Nav.Link href="https://www.facebook.com/profile.php?id=61573985252362" target="_blank" rel="noopener noreferrer">
+                                            <img alt="Facebook" src="/images/facebook-circle.png" width="30" height="30" className="me-2" />
+                                        </Nav.Link>
+                                    </Col>
+                                    <Col className="text-center">
+                                        <Nav.Link href="https://www.tiktok.com/@dreamonsocial" target="_blank" rel="noopener noreferrer">
+                                            <img alt="TikTok" src="/images/tiktok-circle.png" width="30" height="30" className="me-2" />
+                                        </Nav.Link>
+                                    </Col>
                                 </Row>
                             </Nav>
                         </Offcanvas.Body>
