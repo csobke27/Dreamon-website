@@ -74,6 +74,11 @@ const BlogPost = () => {
                                     )}
                                 <div className={`blog-post-content center-content`}>
                                     <h1 className="blog-post-title">{post.title.rendered}</h1>
+                                    {/* {post.jetpack_featured_media_url && (
+                                        <div className="blog-image-container">
+                                            <Image className="blog-post-image" src={post.jetpack_featured_media_url} alt={post.title} fluid />
+                                        </div>
+                                    )} */}
                                     <div className="blog-post-insert" dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
                                 </div>
                                 </>

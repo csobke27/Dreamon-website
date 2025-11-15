@@ -56,6 +56,7 @@ const Navigation = () => {
                         <Offcanvas.Body>
                             <Nav className="justify-content-end flex-grow-1 pe-3">
                                 <Nav.Link href="/">Home</Nav.Link>
+                                <Nav.Link href="/about-us">About Us</Nav.Link>
                                 <Nav.Link href="/nyx-legacy">Nyx Legacy</Nav.Link>
                                 <Nav.Link href="/blog">Blog</Nav.Link>
                                 <Nav.Link href="https://www.gofundme.com/f/nyx-legacy-a-story-to-be-told">GoFundMe</Nav.Link>
