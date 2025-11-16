@@ -58,7 +58,7 @@ const Blog = () => {
         setLoading(true);
         setCurrentPage(page);
         try {
-            let postsUrl = `${WP_API_BASE}posts?page=${page}&per_page=2`;
+            let postsUrl = `${WP_API_BASE}posts?page=${page}&per_page=5`;
             switch (sortOrder) {
                 case 'date':
                     postsUrl += `&order_by=date&order=desc`;
