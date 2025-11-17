@@ -61,20 +61,20 @@ const BlogPost = () => {
     }, [slug]);
 
     // Responsive layout helper
-    const getCenterContentClass = () => {
-        if (typeof window !== 'undefined') {
-            let width = 992; //md = 768 lg = 992 xl = 1200
-            return window.innerWidth < width ? '' : 'center-content';
-        }
-        return 'center-content';
-    };
+    // const getCenterContentClass = () => {
+    //     if (typeof window !== 'undefined') {
+    //         let width = 992; //md = 768 lg = 992 xl = 1200
+    //         return window.innerWidth < width ? '' : 'center-content';
+    //     }
+    //     return 'center-content';
+    // };
 
-    const [blogLayout, setBlogLayout] = useState(getCenterContentClass());
-    useEffect(() => {
-        const handleResize = () => setBlogLayout(getCenterContentClass());
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    // const [blogLayout, setBlogLayout] = useState(getCenterContentClass());
+    // useEffect(() => {
+    //     const handleResize = () => setBlogLayout(getCenterContentClass());
+    //     window.addEventListener('resize', handleResize);
+    //     return () => window.removeEventListener('resize', handleResize);
+    // }, []);
 
     return (
         <Container fluid className="blog-post-page">
@@ -89,7 +89,7 @@ const BlogPost = () => {
                                     <span className="spinner-border" role="status" aria-hidden="true" style={{ width: '3rem', height: '3rem' }}></span>
                                 </Col>
                             )} */}
-                            {post && post.length !== 0 && (
+                            {(post && post.length !== 0) ? (
                                 <>
                                     <a href="/blog" className="back-link">&larr; Back to Blog</a>
                                     {post.jetpack_featured_media_url && (
@@ -100,23 +100,23 @@ const BlogPost = () => {
                                         <div className="blog-post-insert" dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
                                     </div>
                                 </>
-                            ) || post === null && (
+                            ) : (post === null) ? (
                                 <Col className="no-padding text-center" style={{ marginTop: 150, marginBottom: 150 }}>
                                     <span className="spinner-border" role="status" aria-hidden="true" style={{ width: '3rem', height: '3rem' }}></span>
                                 </Col>
-                            ) || (post && post.length === 0 && (
+                            ) :  (
                                 <>
                                     <a href="/blog" className="back-link">&larr; Back to Blog</a>
                                     <Col className="no-padding text-center" style={{ marginTop: 150, marginBottom: 150 }}>
                                         <h3 style={{ color: 'white' }}>Post not found.</h3>
                                     </Col>
                                 </>
-                            ))}
+                            )}
                         </div>
                     </Animation>
                 </Col>
                 <Col lg={2}>
-                    {relatedPosts && (
+                    {relatedPosts && relatedPosts.length > 0 && (
                         <div className="related-posts-container center-content">
                             <h3 className="related-posts-title text-center">Related Posts</h3>
                             <div className="d-none d-lg-flex w-100">

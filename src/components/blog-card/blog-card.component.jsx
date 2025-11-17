@@ -29,7 +29,7 @@ const BlogCard = ({ slug, title, thumbnail, content, layout = "vertical" }) => {
                                 {thumbnail !== '' && (
                                     <img className="blog-card-image" src={thumbnail} alt="Blog Post" />
                                 )}
-                                <div className="blog-card-title">{title.rendered}</div>
+                                <div className="blog-card-title">{title.rendered.replace("&nbsp;", " ")}</div>
                                 <div className="blog-card-content" dangerouslySetInnerHTML={{ __html: content.rendered }} /> {/*style={{ height: '50px', overflow: 'hidden' }} */}
                             </Col>
                         </>

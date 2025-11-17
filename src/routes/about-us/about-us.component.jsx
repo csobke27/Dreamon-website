@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -46,7 +46,7 @@ const AboutUs = () => {
         document.title = "Dreamon | About Us";
     }, []);
 
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     useEffect(() => {
         const themedClasses = [".navigation-container", ".footer-link"];
         document.querySelector('.outlet-container').style.setProperty('--outlet-bg', 'black'); // Set background behind navbar to black

@@ -96,7 +96,7 @@ const NyxLegacy = () => {
             <Row className="center-content">
                 <div className="border-top-white no-margin-top"></div>
                 <Col className="text-center">
-                    <iframe width="596" height="336" src="https://www.youtube.com/embed/M7hUM-_N3NY" title="Nyx legacy Demo trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe style={{aspectRatio: '16 / 9'}} src="https://www.youtube.com/embed/M7hUM-_N3NY" title="Nyx legacy Demo trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </Col>
                 {/* <Col className="text-center" id="nyx-dungeon-1" lg={6}>
                     <Animation type="flip">
