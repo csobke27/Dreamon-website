@@ -76,7 +76,7 @@ const AboutUs = () => {
             </Row>
             <Row className="center-content">
                 <Animation type="fade-in">
-                    <Accordion defaultActiveKey="0" alwaysOpen>
+                    <Accordion defaultActiveKey={['0']} alwaysOpen>
                         {questionList.map((item, index) => (
                             <Accordion.Item eventKey={index.toString()} key={index} className="qa-accordion-item">
                                 <Accordion.Header>
