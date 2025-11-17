@@ -6,10 +6,6 @@
     color: white;
 }
 
-.about-us-title{
-    font-size: 70px;
-}
-
 .about-us-banner{
     width: 100%;
     max-width: 980px;
@@ -58,4 +54,14 @@
 
 .accordion-header > button{
     border-radius: 0 0 0 0;
+}
+
+.about-us-title{
+    font-size: 70px;
+}
+@media (max-width: 767.98px) {
+    // md and below
+    .question-header {
+        font-size: 30px;
+    }
 }
