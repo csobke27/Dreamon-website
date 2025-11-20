@@ -122,7 +122,7 @@ const BlogPost = () => {
                             <div className="d-none d-lg-flex w-100">
                                 <Row>
                                 {relatedPosts.map(rp => (
-                                    <Col>
+                                    <Col xs={12}>
                                         <BlogCard key={rp.id} slug={rp.slug} title={rp.title} thumbnail={rp.jetpack_featured_media_url} content={rp.excerpt} />
                                     </Col>
                                 ))}
